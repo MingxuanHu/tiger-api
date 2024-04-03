@@ -24,15 +24,7 @@ import com.tigerbrokers.stock.openapi.client.struct.enums.License;
 import com.tigerbrokers.stock.openapi.client.struct.enums.MethodName;
 import com.tigerbrokers.stock.openapi.client.struct.enums.MethodType;
 import com.tigerbrokers.stock.openapi.client.struct.enums.TigerApiCode;
-import com.tigerbrokers.stock.openapi.client.util.AccountUtil;
-import com.tigerbrokers.stock.openapi.client.util.ApiLogger;
-import com.tigerbrokers.stock.openapi.client.util.ConfigFileUtil;
-import com.tigerbrokers.stock.openapi.client.util.FastJsonPropertyFilter;
-import com.tigerbrokers.stock.openapi.client.util.HttpUtils;
-import com.tigerbrokers.stock.openapi.client.util.NetworkUtil;
-import com.tigerbrokers.stock.openapi.client.util.SdkVersionUtils;
-import com.tigerbrokers.stock.openapi.client.util.StringUtils;
-import com.tigerbrokers.stock.openapi.client.util.TigerSignature;
+import com.tigerbrokers.stock.openapi.client.util.*;
 import com.tigerbrokers.stock.openapi.client.util.builder.AccountParamBuilder;
 import java.security.Security;
 import java.util.HashMap;
@@ -229,6 +221,16 @@ public class TigerHttpClient implements TigerClient {
 
   public String getAccountType() {
     return accountType;
+  }
+
+  @Override
+  public <T extends TigerResponse> T executeSuccess(TigerRequest<T> request) {
+    T response = execute(request);
+    if (response.isSuccess()) {
+      return response;
+    }
+    throw new RuntimeException(TextUtils.format("tiger API request failed, request={}, code={}, message={}",
+            request, response.getCode(), response.getMessage()));
   }
 
   @Override

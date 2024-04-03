@@ -11,6 +11,19 @@ public class OptionSymbol {
   private String strike;
   private String right;
 
+  /**
+   * @param optSymbol "AAPL 20230317 150.0 CALL"
+   */
+  public static OptionSymbol of(String optSymbol) {
+    String[] parts = optSymbol.split("\\s+");
+    OptionSymbol symbol = new OptionSymbol();
+    symbol.setSymbol(parts[0]);
+    symbol.setExpiry(parts[1]);
+    symbol.setStrike(parts[2]);
+    symbol.setRight(parts[3]);
+    return symbol;
+  }
+
   public String getSymbol() {
     return symbol;
   }

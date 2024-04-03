@@ -564,4 +564,70 @@ public class TradeOrder implements Serializable {
   public void setAttrList(List<String> attrList) {
     this.attrList = attrList;
   }
+
+  @Override
+  public String toString() {
+    return "TradeOrder{" +
+            "symbol='" + symbol + '\'' +
+            ", market='" + market + '\'' +
+            ", secType='" + secType + '\'' +
+            ", currency='" + currency + '\'' +
+            ", expiry='" + expiry + '\'' +
+            ", strike='" + strike + '\'' +
+            ", right='" + right + '\'' +
+            ", multiplier=" + multiplier +
+            ", identifier='" + identifier + '\'' +
+            ", id=" + id +
+            ", orderId=" + orderId +
+            ", externalId='" + externalId + '\'' +
+            ", parentId=" + parentId +
+            ", account='" + account + '\'' +
+            ", action='" + action + '\'' +
+            ", orderType='" + orderType + '\'' +
+            ", limitPrice=" + limitPrice +
+            ", auxPrice=" + auxPrice +
+            ", trailingPercent=" + trailingPercent +
+            ", totalQuantity=" + totalQuantity +
+            ", filledQuantity=" + filledQuantity +
+            ", filledQuantityScale=" + filledQuantityScale +
+            ", cashQuantity=" + cashQuantity +
+            ", totalCashAmount=" + totalCashAmount +
+            ", filledCashAmount=" + filledCashAmount +
+            ", refundCashAmount=" + refundCashAmount +
+            ", lastFillPrice=" + lastFillPrice +
+            ", avgFillPrice=" + avgFillPrice +
+            ", timeInForce='" + timeInForce + '\'' +
+            ", expireTime=" + expireTime +
+            ", goodTillDate='" + goodTillDate + '\'' +
+            ", outsideRth=" + outsideRth +
+            ", commission=" + commission +
+            ", realizedPnl=" + realizedPnl +
+            ", remark='" + remark + '\'' +
+            ", triggerStatus='" + triggerStatus + '\'' +
+            ", liquidation=" + liquidation +
+            ", openTime=" + openTime +
+            ", updateTime=" + updateTime +
+            ", latestTime=" + latestTime +
+            ", name='" + name + '\'' +
+            ", latestPrice=" + latestPrice +
+            ", attrDesc='" + attrDesc + '\'' +
+            ", userMark='" + userMark + '\'' +
+            ", attrList=" + attrList +
+            ", ocaGroupId=" + ocaGroupId +
+            ", comboLegs='" + comboLegs + '\'' +
+            ", allocAccounts=" + allocAccounts +
+            ", allocShares=" + allocShares +
+            ", algoStrategy='" + algoStrategy + '\'' +
+            ", algoParameters=" + algoParameters +
+            ", status=" + status +
+            ", source='" + source + '\'' +
+            ", discount=" + discount +
+            ", canModify=" + canModify +
+            ", canCancel=" + canCancel +
+            ", isOpen=" + isOpen +
+            ", comboType='" + comboType + '\'' +
+            ", comboTypeDesc='" + comboTypeDesc + '\'' +
+            ", legs=" + legs +
+            '}';
+  }
 }

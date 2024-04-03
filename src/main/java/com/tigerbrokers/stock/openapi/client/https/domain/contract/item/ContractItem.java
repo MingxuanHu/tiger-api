@@ -22,6 +22,7 @@ public class ContractItem extends ApiModel {
   private String expiry;
   private String contractMonth;
   private Double strike;
+  private String strikeStr;
   private String right;
   private Double multiplier;
   private String exchange;
@@ -114,8 +115,16 @@ public class ContractItem extends ApiModel {
     return strike;
   }
 
+  public String getStrikeStr() {
+    return strikeStr;
+  }
+
   public void setStrike(Double strike) {
     this.strike = strike;
+  }
+
+  public void setStrikeStr(String strikeStr) {
+    this.strikeStr = strikeStr;
   }
 
   public String getRight() {
@@ -405,6 +414,7 @@ public class ContractItem extends ApiModel {
             ", expiry='" + expiry + '\'' +
             ", contractMonth='" + contractMonth + '\'' +
             ", strike=" + strike +
+            ", strikeStr='" + strikeStr + '\'' +
             ", right='" + right + '\'' +
             ", multiplier=" + multiplier +
             ", exchange='" + exchange + '\'' +
@@ -434,6 +444,11 @@ public class ContractItem extends ApiModel {
             ", tickSizes=" + tickSizes +
             ", isEtf=" + isEtf +
             ", etfLeverage=" + etfLeverage +
+            ", discountedDayInitialMargin=" + discountedDayInitialMargin +
+            ", discountedDayMaintenanceMargin=" + discountedDayMaintenanceMargin +
+            ", discountedTimeZoneCode='" + discountedTimeZoneCode + '\'' +
+            ", discountedStartAt='" + discountedStartAt + '\'' +
+            ", discountedEndAt='" + discountedEndAt + '\'' +
             '}';
   }
 
@@ -475,34 +490,39 @@ public class ContractItem extends ApiModel {
     return contractItem;
   }
 
-  public static ContractItem buildOptionContract(String identifier) throws TigerApiException {
+  public static ContractItem buildOptionContract(String identifier) {
+    // identifier='AAPL  190118P00160000'
+    return buildOptionContract(SymbolUtil.convertToOptionSymbolObject(identifier));
+  }
+
+  public static ContractItem buildOptionContract(OptionSymbol optionSymbol) {
     ContractItem contractItem = new ContractItem();
     contractItem.setSecType(SecType.OPT.name());
     // identifier='AAPL  190118P00160000'
-    OptionSymbol optionSymbol = SymbolUtil.convertToOptionSymbolObject(identifier);
     contractItem.setSymbol(optionSymbol.getSymbol());
     contractItem.setExpiry(optionSymbol.getExpiry());
     contractItem.setStrike(Double.parseDouble(optionSymbol.getStrike()));
+    contractItem.setStrikeStr(optionSymbol.getStrike());
     contractItem.setRight(optionSymbol.getRight());
     return contractItem;
   }
 
-  public static ContractItem buildOptionContract(String symbol, String expiry, Double strike, String right) {
-    ContractItem contractItem = new ContractItem();
-    contractItem.setSecType(SecType.OPT.name());
-    contractItem.setSymbol(symbol);
-    contractItem.setExpiry(expiry);
-    contractItem.setStrike(strike);
-    contractItem.setRight(right);
-    return contractItem;
+  public static ContractItem buildOptionContract(String symbol, String expiry, String strike, String right) {
+    OptionSymbol optionSymbol = new OptionSymbol();
+    optionSymbol.setSymbol(symbol);
+    optionSymbol.setExpiry(expiry);
+    optionSymbol.setStrike(strike);
+    optionSymbol.setRight(right);
+    return buildOptionContract(optionSymbol);
   }
 
-  public static ContractItem buildWarrantContract(String symbol, String expiry, Double strike, String right) {
+  public static ContractItem buildWarrantContract(String symbol, String expiry, String strike, String right) {
     ContractItem contractItem = new ContractItem();
     contractItem.setSecType(SecType.WAR.name());
     contractItem.setSymbol(symbol);
     contractItem.setExpiry(expiry);
-    contractItem.setStrike(strike);
+    contractItem.setStrike(Double.parseDouble(strike));
+    contractItem.setStrikeStr(strike);
     contractItem.setRight(right);
     contractItem.setLocalSymbol(symbol);
     contractItem.setCurrency(Currency.HKD.name());
@@ -511,12 +531,13 @@ public class ContractItem extends ApiModel {
 
   }
 
-  public static ContractItem buildCbbcContract(String symbol, String expiry, Double strike, String right) {
+  public static ContractItem buildCbbcContract(String symbol, String expiry, String strike, String right) {
     ContractItem contractItem = new ContractItem();
     contractItem.setSecType(SecType.IOPT.name());
     contractItem.setSymbol(symbol);
     contractItem.setExpiry(expiry);
-    contractItem.setStrike(strike);
+    contractItem.setStrike(Double.parseDouble(strike));
+    contractItem.setStrikeStr(strike);
     contractItem.setRight(right);
     contractItem.setLocalSymbol(symbol);
     contractItem.setCurrency(Currency.HKD.name());

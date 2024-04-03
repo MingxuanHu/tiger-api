@@ -1,5 +1,10 @@
 package com.tigerbrokers.stock.openapi.client.struct.enums;
 
+import com.google.common.collect.ImmutableSet;
+
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Description:
  * Created by lijiawen on 2018/05/16.
@@ -14,7 +19,7 @@ public enum OrderStatus implements CodeEnumType {
   Inactive(7),
   PendingSubmit(8);
 
-  private int code;
+  private final int code;
 
   OrderStatus(int code) {
     this.code = code;
@@ -23,5 +28,11 @@ public enum OrderStatus implements CodeEnumType {
   @Override
   public int getCode() {
     return this.code;
+  }
+
+  private static final Set<OrderStatus> ACTIVE = ImmutableSet.of(Initial, PendingSubmit, PendingCancel, Submitted);
+
+  public static boolean isActive(OrderStatus status) {
+    return ACTIVE.contains(status);
   }
 }

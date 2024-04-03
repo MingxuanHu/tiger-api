@@ -165,7 +165,7 @@ public class TradeOrderRequest extends TigerCommonRequest implements TigerReques
   }
 
   public static TradeOrderRequest buildMultiLegOrder(String account,
-      List<ContractLeg> contractLegs, ComboType comboType, ActionType action, Integer quantity,
+      List<ContractLeg> contractLegs, ComboType comboType, Integer quantity,
       OrderType orderType, Double limitPrice, Double auxPrice, Double trailingPercent) {
     if (contractLegs == null) {
       throw new IllegalArgumentException("parameter 'contractLegs' is null");
@@ -177,7 +177,7 @@ public class TradeOrderRequest extends TigerCommonRequest implements TigerReques
     model.setSecType(SecType.MLEG);
     model.setComboType(comboType.name());
     model.setAccount(StringUtils.isEmpty(account) ? ClientConfig.DEFAULT_CONFIG.defaultAccount : account);
-    model.setAction(action);
+    model.setAction(ActionType.BUY);
     model.setTotalQuantity(quantity);
     model.setContractLegs(contractLegs);
 

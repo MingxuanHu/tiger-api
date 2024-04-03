@@ -76,4 +76,18 @@ public class OrderLeg extends ContractLeg {
   public void setUpdatedAt(Long updatedAt) {
     this.updatedAt = updatedAt;
   }
+
+  @Override
+  public String toString() {
+    return "OrderLeg{" +
+            "market='" + market + '\'' +
+            ", currency='" + currency + '\'' +
+            ", multiplier=" + multiplier +
+            ", totalQuantity=" + totalQuantity +
+            ", filledQuantity=" + filledQuantity +
+            ", avgFilledPrice=" + avgFilledPrice +
+            ", createdAt=" + createdAt +
+            ", updatedAt=" + updatedAt +
+            '}';
+  }
 }

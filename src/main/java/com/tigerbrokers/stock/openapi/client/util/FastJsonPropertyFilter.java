@@ -1,13 +1,18 @@
 package com.tigerbrokers.stock.openapi.client.util;
 
 import com.alibaba.fastjson.serializer.PropertyFilter;
+import com.google.common.collect.ImmutableSet;
+
 import java.util.List;
+import java.util.Set;
 
 /**
  * Description:
  * Created by lijiawen on 2018/05/31.
  */
 public class FastJsonPropertyFilter {
+
+  private static final Set<String> CAN_NEGATIVE_FIELDS = ImmutableSet.of("adjust_limit", "limit_price");
 
   public static PropertyFilter getPropertyFilter() {
     return new PropertyFilter() {
@@ -21,7 +26,7 @@ public class FastJsonPropertyFilter {
             return false;
           }
         } else if (value instanceof Double) {
-          if ((Double) value <= 0.0D && !"adjust_limit".equals(key)) {
+          if ((Double) value <= 0.0D && !CAN_NEGATIVE_FIELDS.contains(key)) {
             return false;
           }
         } else if (value instanceof Float) {

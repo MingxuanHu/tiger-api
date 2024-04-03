@@ -35,6 +35,17 @@ public class PositionDetail implements Serializable {
   private Double multiplier;
   private Long updateTimestamp;
 
+  /**
+   * 忽略多空，总是正数
+   */
+  public long getRealPosition() {
+    if (positionScale == 0) {
+      return Math.abs(position);
+    }
+    double p = Math.abs(position) * Math.pow(10, -positionScale);
+    return Math.round(p);
+  }
+
   public String getAccount() {
     return account;
   }
@@ -225,5 +236,35 @@ public class PositionDetail implements Serializable {
 
   public void setUpdateTimestamp(Long updateTimestamp) {
     this.updateTimestamp = updateTimestamp;
+  }
+
+  @Override
+  public String toString() {
+    return "PositionDetail{" +
+            "account='" + account + '\'' +
+            ", position=" + position +
+            ", positionScale=" + positionScale +
+            ", averageCost=" + averageCost +
+            ", averageCostByAverage=" + averageCostByAverage +
+            ", marketValue=" + marketValue +
+            ", latestPrice=" + latestPrice +
+            ", realizedPnl=" + realizedPnl +
+            ", realizedPnlByAverage=" + realizedPnlByAverage +
+            ", unrealizedPnl=" + unrealizedPnl +
+            ", unrealizedPnlByAverage=" + unrealizedPnlByAverage +
+            ", unrealizedPnlPercent=" + unrealizedPnlPercent +
+            ", unrealizedPnlPercentByAverage=" + unrealizedPnlPercentByAverage +
+            ", salable=" + salable +
+            ", secType='" + secType + '\'' +
+            ", market='" + market + '\'' +
+            ", currency='" + currency + '\'' +
+            ", identifier='" + identifier + '\'' +
+            ", symbol='" + symbol + '\'' +
+            ", expiry='" + expiry + '\'' +
+            ", strike='" + strike + '\'' +
+            ", right='" + right + '\'' +
+            ", multiplier=" + multiplier +
+            ", updateTimestamp=" + updateTimestamp +
+            '}';
   }
 }

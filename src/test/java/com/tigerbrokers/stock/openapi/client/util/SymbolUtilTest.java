@@ -1,5 +1,6 @@
 package com.tigerbrokers.stock.openapi.client.util;
 
+import com.tigerbrokers.stock.openapi.client.struct.OptionSymbol;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,5 +46,16 @@ public class SymbolUtilTest {
     Assert.assertFalse(SymbolUtil.isFutureSymbol("AAPL"));
     Assert.assertFalse(SymbolUtil.isFutureSymbol("00700"));
     Assert.assertFalse(SymbolUtil.isFutureSymbol("BK4555"));
+  }
+
+  @Test
+  public void testConvertToIdentifier() {
+    OptionSymbol optionSymbol = OptionSymbol.of("AAPL 20230317 150.0 CALL");
+    String identifier = SymbolUtil.convertToIdentifier(optionSymbol);
+    Assert.assertEquals("AAPL  230317C00150000", identifier);
+
+    optionSymbol = OptionSymbol.of("SPY 20190508 29 PUT");
+    identifier = SymbolUtil.convertToIdentifier(optionSymbol);
+    Assert.assertEquals("SPY   190508P00029000", identifier);
   }
 }

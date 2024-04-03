@@ -46,4 +46,12 @@ public final class TagValue {
     }
     return new TagValue(tag, value.toString());
   }
+
+  @Override
+  public String toString() {
+    return "TagValue{" +
+            "tag='" + tag + '\'' +
+            ", value='" + value + '\'' +
+            '}';
+  }
 }

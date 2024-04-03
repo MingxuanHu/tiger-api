@@ -49,4 +49,14 @@ public class TradableQuantityItem implements Serializable {
   public void setTradablePositionQuantity(Double tradablePositionQuantity) {
     this.tradablePositionQuantity = tradablePositionQuantity;
   }
+
+  @Override
+  public String toString() {
+    return "TradableQuantityItem{" +
+            "tradableQuantity=" + tradableQuantity +
+            ", financingQuantity=" + financingQuantity +
+            ", positionQuantity=" + positionQuantity +
+            ", tradablePositionQuantity=" + tradablePositionQuantity +
+            '}';
+  }
 }
